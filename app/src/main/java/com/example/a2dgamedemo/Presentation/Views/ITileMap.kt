@@ -3,8 +3,9 @@ package com.example.a2dgamedemo.Presentation.Views
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import com.example.a2dgamedemo.Presentation.Views.Common.IBaseView
 
-interface ITileMap {
+interface ITileMap : IBaseView{
     fun setX(value : Int)
     fun getX() : Int
 
@@ -28,8 +29,8 @@ interface ITileMap {
 
     fun getTileSet() : Bitmap
 
-    fun draw(canvas: Canvas, paint: Paint)
+    /*fun draw(canvas: Canvas, paint: Paint)
 
-    fun update()
+    fun update()*/
 
 }
