@@ -128,11 +128,11 @@ class TileMap(context: Context, mapSize: DensityTypes) : ITileMap {
             val inputStreamReader = InputStreamReader(context?.resources?.openRawResource(R.raw.map))
             val bufferedReader = BufferedReader(inputStreamReader)
 
-            minX = DisplayHelper.getDisplayWidth() - mapWidth*mapSize!!.value
-            minY = DisplayHelper.getDisplayHeight() - mapHeight*mapSize!!.value
+            minX = DisplayHelper.getDisplayWidth(context!!) - mapWidth*mapSize!!.value
+            minY = DisplayHelper.getDisplayHeight(context!!) - mapHeight*mapSize!!.value
 
-            numRowToDraw = DisplayHelper.getDisplayHeight()/mapSize!!.value + 2
-            numColToDraw = DisplayHelper.getDisplayWidth()/mapSize!!.value + 2
+            numRowToDraw = DisplayHelper.getDisplayHeight(context!!)/mapSize!!.value + 2
+            numColToDraw = DisplayHelper.getDisplayWidth(context!!)/mapSize!!.value + 2
 
             map = arrayOf(arrayOf(mapHeight, mapWidth))
             val delimeters = "\\s+"
