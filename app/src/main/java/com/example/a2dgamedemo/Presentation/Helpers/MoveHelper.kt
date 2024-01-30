@@ -15,8 +15,6 @@ class MoveHelper {
                 DensityTypes.DENSITY_XHIGH -> 2 * defaultSpeed
                 DensityTypes.DENSITY_HIGH -> 1.5f * defaultSpeed
             }
-
-            return 2 * defaultSpeed
         }
     }
 }

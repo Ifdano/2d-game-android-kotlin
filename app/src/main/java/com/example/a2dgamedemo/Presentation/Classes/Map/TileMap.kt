@@ -7,12 +7,12 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import com.example.a2dgamedemo.Enums.DensityTypes
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
-import com.example.a2dgamedemo.Presentation.Views.ITileMap
+import com.example.a2dgamedemo.Presentation.Views.ITileMapView
 import com.example.a2dgamedemo.R
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class TileMap(context: Context, mapSize: DensityTypes) : ITileMap {
+class TileMap(context: Context, mapSize: DensityTypes) : ITileMapView {
     val MAP = "map.txt"
 
     private var context: Context? = null

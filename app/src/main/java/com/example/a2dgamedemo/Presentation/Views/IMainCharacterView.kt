@@ -2,7 +2,7 @@ package com.example.a2dgamedemo.Presentation.Views
 
 import com.example.a2dgamedemo.Presentation.Views.Common.IBaseView
 
-interface IMainCharacter : IBaseView{
+interface IMainCharacterView : IBaseView{
     fun setPosition(x : Float, y : Float)
 
     fun getX() : Float

@@ -3,9 +3,9 @@ package com.example.a2dgamedemo.Presentation.Classes.Animation
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
-import com.example.a2dgamedemo.Presentation.Views.IMainAnimation
+import com.example.a2dgamedemo.Presentation.Views.IMainAnimationView
 
-class MainAnimation : IMainAnimation{
+class MainAnimation : IMainAnimationView{
     private lateinit var frames : Array<Bitmap>
     private var currentFrame = 0
 

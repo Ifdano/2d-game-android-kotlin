@@ -1,11 +1,9 @@
 package com.example.a2dgamedemo.Presentation.Views
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
 import com.example.a2dgamedemo.Presentation.Views.Common.IBaseView
 
-interface ITileMap : IBaseView{
+interface ITileMapView : IBaseView{
     fun setX(value : Int)
     fun getX() : Int
 

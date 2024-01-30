@@ -9,10 +9,11 @@ import com.example.a2dgamedemo.Enums.DensityTypes
 
 class DisplayHelper {
     companion object {
-        fun getDefaultDisplay(context: Context) : Display {
+        private fun getDefaultDisplay(context: Context) : Display {
             val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             return windowManager.defaultDisplay
         }
+        
         fun getDisplayWidth(context: Context): Int = getDefaultDisplay(context).width
 
         fun getDisplayHeight(context: Context): Int{

@@ -12,10 +12,12 @@ import com.example.a2dgamedemo.Presentation.Classes.Audio.MainAudio
 import com.example.a2dgamedemo.Presentation.Classes.Common.MapObject
 import com.example.a2dgamedemo.Presentation.Classes.Map.TileMap
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
-import com.example.a2dgamedemo.Presentation.Views.IMainCharacter
+import com.example.a2dgamedemo.Presentation.Views.IMainCharacterView
+import java.io.Serializable
 
 open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, density: Int) :
-    MapObject(context, map, mapSize, density), IMainCharacter {
+    MapObject(context, map, mapSize, density), IMainCharacterView, Serializable {
+
     protected var x = 0f
     protected var y = 0f
     protected var dx = 0f
@@ -279,6 +281,9 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
 
             if(!bottomLeft && !bottomRight) falling = true
         }
+
+        x = tempX
+        y = tempY
     }
 
     private fun checkFocus(){
