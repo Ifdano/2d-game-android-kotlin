@@ -3,7 +3,7 @@ package com.example.a2dgamedemo.Presentation.Views
 import android.graphics.Bitmap
 import com.example.a2dgamedemo.Presentation.Views.Common.IBaseView
 
-interface ITileMapView : IBaseView{
+interface ITileMap : IBaseView{
     fun setX(value : Int)
     fun getX() : Int
 

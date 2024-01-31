@@ -3,15 +3,15 @@ package com.example.a2dgamedemo.Presentation.Classes.Animation
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
-import com.example.a2dgamedemo.Presentation.Views.IMainAnimationView
+import com.example.a2dgamedemo.Presentation.Views.IMainAnimation
 
-class MainAnimation : IMainAnimationView{
-    private lateinit var frames : Array<Bitmap>
+class MainAnimation : IMainAnimation{
+    private lateinit var frames : ArrayList<Bitmap>
     private var currentFrame = 0
 
     private var startTime = 0L
     private var delay = 0L
-    override fun setFrame(frames: Array<Bitmap>) {
+    override fun setFrame(frames: ArrayList<Bitmap>) {
         this.frames = frames
 
         if(currentFrame >= frames.size)

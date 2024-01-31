@@ -1,5 +1,5 @@
 package com.example.a2dgamedemo.Presentation.Views
 
-interface IMainAudioView{
+interface IMainAudio{
     fun play()
 }

@@ -6,10 +6,10 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
-import com.example.a2dgamedemo.Presentation.Views.IMainBackgroundView
+import com.example.a2dgamedemo.Presentation.Views.IMainBackground
 import com.example.a2dgamedemo.R
 
-class MainBackground(context: Context) : IMainBackgroundView{
+class MainBackground(context: Context) : IMainBackground{
     private val MOVE_SCALE_BACKGROUND_MOUNTAINS = 1.3f
     private val MOVE_SCALE_BACKGROUND_CLOUDS = 1.1f
 

@@ -7,12 +7,12 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import com.example.a2dgamedemo.Enums.DensityTypes
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
-import com.example.a2dgamedemo.Presentation.Views.ITileMapView
+import com.example.a2dgamedemo.Presentation.Views.ITileMap
 import com.example.a2dgamedemo.R
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class TileMap(context: Context, mapSize: DensityTypes) : ITileMapView {
+class TileMap(context: Context, mapSize: DensityTypes) : ITileMap {
     val MAP = "map.txt"
 
     private var context: Context? = null
@@ -34,7 +34,8 @@ class TileMap(context: Context, mapSize: DensityTypes) : ITileMapView {
     private var rowOffset = 0
     private var colOffset = 0
 
-    private var map: Array<Array<Int>>? = null
+    //private var map: Array<Array<Int>>? = null
+    private var map: Array<IntArray>? = null
 
     private var tileSet: Bitmap? = null
     private var tiles: Array<Array<Tile>>? = null
@@ -134,12 +135,16 @@ class TileMap(context: Context, mapSize: DensityTypes) : ITileMapView {
             numRowToDraw = DisplayHelper.getDisplayHeight(context!!)/mapSize!!.value + 2
             numColToDraw = DisplayHelper.getDisplayWidth(context!!)/mapSize!!.value + 2
 
-            map = arrayOf(arrayOf(mapHeight, mapWidth))
-            val delimeters = "\\s+"
+            //map = arrayOf(arrayOf(mapHeight, mapWidth))
+
+            //переносим карту в массив
+            map = Array<IntArray>(mapHeight) { IntArray(mapWidth) }
+            val delimeters = " "
 
             for(row in 0 until mapHeight){
                 val line = bufferedReader.readLine()
-                val tokens = line.split(delimeters)
+                //val tokens: List<String> = line.split(delimeters)
+                val tokens = line.split(delimeters).toTypedArray()
 
                 for(col in 0 until mapWidth){
                     map!![row][col] = tokens[col].toInt()

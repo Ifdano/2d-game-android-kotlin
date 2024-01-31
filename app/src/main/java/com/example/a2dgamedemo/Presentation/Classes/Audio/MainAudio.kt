@@ -3,10 +3,10 @@ package com.example.a2dgamedemo.Presentation.Classes.Audio
 import android.content.Context
 import android.media.MediaPlayer
 import com.example.a2dgamedemo.Enums.SoundType
-import com.example.a2dgamedemo.Presentation.Views.IMainAudioView
+import com.example.a2dgamedemo.Presentation.Views.IMainAudio
 import com.example.a2dgamedemo.R
 
-class MainAudio(soundType: SoundType, context: Context) :IMainAudioView {
+class MainAudio(soundType: SoundType, context: Context) :IMainAudio {
     private var mediaPlayer: MediaPlayer? = null
     private var soundType: SoundType
     private var context: Context

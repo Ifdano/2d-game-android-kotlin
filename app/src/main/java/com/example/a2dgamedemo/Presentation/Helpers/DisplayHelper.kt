@@ -29,7 +29,7 @@ class DisplayHelper {
                 actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data, context.resources.displayMetrics)
             }
 
-            return getDisplayHeight(context) - statusBarHeight - actionBarHeight
+            return getDefaultDisplay(context).height - statusBarHeight - actionBarHeight
         }
 
         fun getDensity(): Int = 0
