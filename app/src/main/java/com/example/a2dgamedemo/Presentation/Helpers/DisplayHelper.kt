@@ -49,7 +49,7 @@ class DisplayHelper {
 
             val displayMetrics = context.resources.displayMetrics
 
-            when ((160f * displayMetrics.density).toInt()) {
+            val currentDensityType = when ((160f * displayMetrics.density).toInt()) {
                 in 600..1000 -> DensityTypes.DENSITY_XXXHIGH
                 in 520 until 600 -> DensityTypes.DENSITY_35X
                 in 460 until 520 -> DensityTypes.DENSITY_XXHIGH
@@ -57,9 +57,10 @@ class DisplayHelper {
                 in 330 until 380 -> DensityTypes.DENSITY_22X
                 in 270 until 330 -> DensityTypes.DENSITY_XHIGH
                 in 200 until 270 -> DensityTypes.DENSITY_HIGH
+                else -> DensityTypes.DENSITY_XHIGH
             }
 
-            return DensityTypes.DENSITY_XHIGH
+            return currentDensityType;
         }
     }
 }

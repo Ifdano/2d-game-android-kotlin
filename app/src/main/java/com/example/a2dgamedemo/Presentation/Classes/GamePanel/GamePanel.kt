@@ -8,8 +8,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import com.example.a2dgamedemo.Application.Models.BraidCharacter
+import com.example.a2dgamedemo.Application.Models.SonicCharacter
 import com.example.a2dgamedemo.Enums.SoundType
 import com.example.a2dgamedemo.Presentation.Classes.Audio.MainAudio
+import com.example.a2dgamedemo.Presentation.Classes.Characters.Common.MainCharacter
 import com.example.a2dgamedemo.Presentation.Classes.Map.TileMap
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
 import com.example.a2dgamedemo.Presentation.ServiceRegistration
@@ -36,6 +38,8 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
     private var background: IMainBackground? = null
 
     private var braidCharacter: BraidCharacter? = null
+    private var sonicCharacter: SonicCharacter? = null
+
     private lateinit var audio: IMainAudio
 
     init {
@@ -54,6 +58,11 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
         braidCharacter = BraidCharacter(context, tileMap as TileMap, DisplayHelper.getDensityType(context), DisplayHelper.getDensity())
         braidCharacter?.setPosition(
             DisplayHelper.getDensityType(context).value.toFloat() + 150f,
+            DisplayHelper.getDensityType(context).value.toFloat() + 50f)
+
+        sonicCharacter = SonicCharacter(context, tileMap as TileMap, DisplayHelper.getDensityType(context), DisplayHelper.getDensity())
+        sonicCharacter?.setPosition(
+            DisplayHelper.getDensityType(context).value.toFloat() + 350f,
             DisplayHelper.getDensityType(context).value.toFloat() + 50f)
 
         paint = Paint()
@@ -95,6 +104,7 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
             tileMap?.draw(canvas!!, paint)
 
             braidCharacter?.draw(canvas!!, paint)
+            sonicCharacter?.draw(canvas!!, paint)
         }
     }
 
@@ -123,13 +133,44 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        TODO("Not yet implemented")
+        val tempX = event!!.x
+        val tempY = event.y
+
+        val tx = tileMap!!.getX()
+
+        when(event?.action){
+            MotionEvent.ACTION_DOWN -> {
+                if (isDoubleClick) {
+                    toggleReverse(sonicCharacter as MainCharacter)
+                    toggleReverse(braidCharacter as MainCharacter)
+                } else {
+                    isDoubleClick = true
+                    doubleHandler.postDelayed(checkDouble, 200)
+
+                    // Character selection
+                    val selectedCharacter: MainCharacter = getSelectedCharacter(tempX, tempY)
+                    sonicCharacter?.setCurrentFocus(selectedCharacter is SonicCharacter)
+                    braidCharacter?.setCurrentFocus(selectedCharacter is BraidCharacter)
+
+                    // Character movement and actions
+                    if (sonicCharacter!!.getCurrentFocus()) {
+                        handleCharacterMovement(sonicCharacter, tempX, tempY)
+                    } else if (braidCharacter!!.getCurrentFocus()) {
+                        handleCharacterMovement(braidCharacter, tempX, tempY)
+                    }
+                }
+            }
+            MotionEvent.ACTION_UP -> {}
+        }
+
+        return true
     }
 
     override fun update() {
         tileMap?.update()
         background?.update(tileMap!!.getX().toFloat())
         braidCharacter?.update()
+        sonicCharacter?.update()
     }
 
     override fun draw(canvas: Canvas, paint: Paint) {
@@ -143,8 +184,26 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
         }
     }*/
 
-    var checkDouble: Runnable = Runnable {
+    private var checkDouble: Runnable = Runnable {
         isDoubleClick = false
         doubleHandler.removeCallbacks(this)
     }
+
+    private fun toggleReverse(character: MainCharacter){
+        if(character.getCurrentFocus()){
+            character.setReverse(!character.isReverse())
+        }
+    }
+
+    private fun getSelectedCharacter(x: Float, y: Float, tx: Float, ty: Float,
+                                     braid: BraidCharacter, sonic: SonicCharacter) : MainCharacter{
+        if(isInsideBounds(x, y, tx + sonic)){
+
+        }else if(){}
+    }
+
+    private fun isInsideBounds(x: Float, y: Float, rectX: Float, rectY: Float,
+                               rectWidth: Float, rectHeight: Float) =
+        x >= rectX - rectWidth/2 && x <= rectX + rectWidth/2 &&
+        y >= rectY - rectHeight/2 && y <= rectY + rectHeight/2
 }

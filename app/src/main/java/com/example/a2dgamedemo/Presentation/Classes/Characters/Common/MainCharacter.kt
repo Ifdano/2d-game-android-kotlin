@@ -88,6 +88,18 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
         this.y = y
     }
 
+    override fun setReverse(value: Boolean) {
+        this.reverse = value
+    }
+
+    override fun isReverse(): Boolean = reverse
+
+    override fun setCurrentFocus(value: Boolean) {
+        this.focus = value
+    }
+
+    override fun getCurrentFocus(): Boolean = focus
+
     //override fun getX(): Float = x
 
     //override fun getY(): Float = y
@@ -330,6 +342,7 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
     override fun update() {}
 
     override fun draw(canvas: Canvas, paint: Paint) {
+
         val tx = map.getX()
         val ty = map.getY()
 
@@ -359,8 +372,9 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
         for(col in 0 until spritesCount){
             frame = Bitmap.createBitmap(spriteWidth, spriteHeight, Bitmap.Config.ARGB_8888)
             pixel = IntArray(width * height)
+            val pixel1 = mutableListOf<Int>()
 
-            image.setPixels(pixel, 0, spriteWidth, col * spriteWidth, 0, spriteWidth, spriteHeight)
+            image.getPixels(pixel, 0, spriteWidth, col * spriteWidth, 0, spriteWidth, spriteHeight)
             frame.setPixels(pixel, 0, spriteWidth, 0, 0, spriteWidth, spriteHeight)
             spritesList.add(frame)
         }

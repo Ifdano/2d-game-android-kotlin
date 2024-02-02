@@ -16,11 +16,11 @@ interface IMainCharacter : IBaseView{
     //fun setRight(value: Boolean)
     //fun setJumping(value: Boolean)
 
-    //fun setReverse(value: Boolean)
-    //fun getReverse() : Boolean
+    fun setReverse(value: Boolean)
+    fun isReverse() : Boolean
 
-    //fun setFocus(value: Boolean)
-    //fun getFocus() : Boolean
+    fun setCurrentFocus(value: Boolean)
+    fun getCurrentFocus() : Boolean
 
     fun setJumpingStop()
 
