@@ -343,7 +343,6 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
     override fun update() {}
 
     override fun draw(canvas: Canvas, paint: Paint) {
-
         val tx = map.getX()
         val ty = map.getY()
 

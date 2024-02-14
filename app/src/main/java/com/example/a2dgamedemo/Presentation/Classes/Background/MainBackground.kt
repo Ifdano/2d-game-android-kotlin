@@ -29,18 +29,18 @@ class MainBackground(context: Context) : IMainBackground{
     }
 
     private fun setBackground(){
-        val originalBitmapMountains = BitmapFactory.decodeResource(context.resources, R.drawable.back1)
         val originalBitmapClouds = BitmapFactory.decodeResource(context.resources, R.drawable.back01)
+        val originalBitmapMountains = BitmapFactory.decodeResource(context.resources, R.drawable.back1)
 
-        bitmapMountains = Bitmap.createScaledBitmap(
-            originalBitmapMountains,
+        bitmapClouds = Bitmap.createScaledBitmap(
+            originalBitmapClouds,
             DisplayHelper.getDisplayWidth(context),
             DisplayHelper.getDisplayHeight(context),
             true
         )
 
-        bitmapClouds = Bitmap.createScaledBitmap(
-            originalBitmapClouds,
+        bitmapMountains = Bitmap.createScaledBitmap(
+            originalBitmapMountains,
             DisplayHelper.getDisplayWidth(context),
             DisplayHelper.getDisplayHeight(context),
             true
@@ -55,8 +55,8 @@ class MainBackground(context: Context) : IMainBackground{
     override fun update() {}
 
     override fun draw(canvas: Canvas, paint: Paint) {
-        drawBackgroundMountains(canvas, paint)
         drawBackgroundClouds(canvas, paint)
+        drawBackgroundMountains(canvas, paint)
     }
 
     private fun drawBackgroundMountains(canvas: Canvas, paint: Paint) {

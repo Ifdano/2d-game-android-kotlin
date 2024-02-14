@@ -139,7 +139,7 @@ class TileMap(context: Context, mapSize: DensityTypes) : ITileMap {
 
             //переносим карту в массив
             map = Array<IntArray>(mapHeight) { IntArray(mapWidth) }
-            val delimeters = " "
+            val delimeters = "\\s+".toRegex()
 
             for(row in 0 until mapHeight){
                 val line = bufferedReader.readLine()
