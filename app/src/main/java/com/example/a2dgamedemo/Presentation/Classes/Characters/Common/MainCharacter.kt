@@ -189,8 +189,8 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
     }
 
     private fun checkFalling(){
-        /*if(falling){
-            if(getReverse()){
+        if(falling){
+            if(reverse){
                 if(gravity > 0){
                     gravity *= -1
                     jumpStart *= -1
@@ -213,9 +213,9 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
 
                 if(dy >= 0) jumpStop = 0f
             }
-        } else dy = 0f*/
+        } else dy = 0f
 
-        if(falling){
+        /*if(falling){
             if(gravity > 0 || gravity < 0){
                 gravity *= -1
                 jumpStart *= -1
@@ -231,7 +231,7 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
                 if(dy > maxFallingSpeed) dy = maxFallingSpeed
                 if(dy >= 0) jumpStop = 0f
             }
-        } else dy = 0f
+        } else dy = 0f*/
     }
 
     private fun checkPosition(){
@@ -289,7 +289,7 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
             }else{
                 if(bottomLeft || bottomRight){
                     dy = 0f
-                    facingRight = false
+                    falling = false
                     tempY = ((currentRowTile + 1) * map.getMapSize() - height/2).toFloat()
                 }else
                     tempY += dy
@@ -324,15 +324,15 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
 
     private fun calculateCorners(xPosition: Float, yPosition: Float){
         if(reverse){
-            topTile = map.getRowTile((y + height/2).toInt() - 1)
-            bottomTile = map.getRowTile((y - height/2).toInt())
+            topTile = map.getRowTile((yPosition + height/2).toInt() - 1)
+            bottomTile = map.getRowTile((yPosition - height/2).toInt())
         }else{
-            topTile = map.getRowTile((y - height/2).toInt())
-            bottomTile = map.getRowTile((y + height/2).toInt() - 1)
+            topTile = map.getRowTile((yPosition - height/2).toInt())
+            bottomTile = map.getRowTile((yPosition + height/2).toInt() - 1)
         }
 
-        leftTile = map.getColTile((x - width/2).toInt())
-        rightTile = map.getColTile((x + width/2).toInt() - 1)
+        leftTile = map.getColTile((xPosition - width/2).toInt())
+        rightTile = map.getColTile((xPosition + width/2).toInt() - 1)
 
         topLeft = map.isBlocked(topTile, leftTile)
         topRight = map.isBlocked(topTile, rightTile)
@@ -366,14 +366,12 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
         canvas.drawBitmap(frame, (tx + x - width/2).toFloat(), (ty + y - height/2).toFloat(), paint)
     }
 
-    // TODO: обрезает спрайты неправильно
     protected fun getSpriteList(image: Bitmap, spritesCount: Int, spriteWidth: Int, spriteHeight: Int) : ArrayList<Bitmap>{
         val spritesList = ArrayList<Bitmap>()
 
         for(col in 0 until spritesCount){
             frame = Bitmap.createBitmap(spriteWidth, spriteHeight, Bitmap.Config.ARGB_8888)
             pixel = IntArray(width * height)
-            val pixel1 = mutableListOf<Int>()
 
             image.getPixels(pixel, 0, spriteWidth, col * spriteWidth, 0, spriteWidth, spriteHeight)
             frame.setPixels(pixel, 0, spriteWidth, 0, 0, spriteWidth, spriteHeight)

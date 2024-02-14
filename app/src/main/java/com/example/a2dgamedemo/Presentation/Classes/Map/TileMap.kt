@@ -202,6 +202,6 @@ class TileMap(context: Context, mapSize: DensityTypes) : ITileMap {
         else if (mapSize!! == DensityTypes.DENSITY_HIGH)
             tileSetFinal = Bitmap.createScaledBitmap(tileSetTemp, 1404, 216, true)
 
-        return tileSetTemp
+        return tileSetFinal
     }
 }

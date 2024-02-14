@@ -7,6 +7,7 @@ import com.example.a2dgamedemo.Enums.DensityTypes
 import com.example.a2dgamedemo.Presentation.Classes.Characters.Common.GoodCharacter
 import com.example.a2dgamedemo.Presentation.Classes.Map.TileMap
 import com.example.a2dgamedemo.Presentation.Helpers.DisplayHelper
+import com.example.a2dgamedemo.Presentation.Helpers.MoveHelper
 import com.example.a2dgamedemo.R
 
 class SonicCharacter(context: Context, map: TileMap, mapSize: DensityTypes, density: Int) :
@@ -20,6 +21,8 @@ class SonicCharacter(context: Context, map: TileMap, mapSize: DensityTypes, dens
 
         width = getCharacterSpriteSize().first
         height = getCharacterSpriteSize().second
+
+        setCharacterSpeedValues()
 
         var idBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sonic_id)
         idBitmap = getScaledImageVer2(idBitmap)
@@ -99,18 +102,6 @@ class SonicCharacter(context: Context, map: TileMap, mapSize: DensityTypes, dens
         }
     }
 
-    /*private fun getCharacterSpriteWidth() : Int{
-        return when (DisplayHelper.getDensityType(context)) {
-            DensityTypes.DENSITY_XXXHIGH -> 128
-            DensityTypes.DENSITY_35X -> 112
-            DensityTypes.DENSITY_XXHIGH -> 96
-            DensityTypes.DENSITY_26X -> 83
-            DensityTypes.DENSITY_22X -> 70
-            DensityTypes.DENSITY_XHIGH -> Bitmap.createScaledBitmap(currentImage, 192, 84, true)
-            DensityTypes.DENSITY_HIGH -> Bitmap.createScaledBitmap(currentImage, 144, 63, true)
-        }
-    }*/
-
     private fun getCharacterSpriteSize() : Pair<Int, Int>{
         return when (DisplayHelper.getDensityType(context)) {
             DensityTypes.DENSITY_XXXHIGH -> Pair(128, 168)
@@ -121,5 +112,14 @@ class SonicCharacter(context: Context, map: TileMap, mapSize: DensityTypes, dens
             DensityTypes.DENSITY_XHIGH -> Pair(64, 84)
             DensityTypes.DENSITY_HIGH -> Pair(48, 63)
         }
+    }
+
+    private fun setCharacterSpeedValues(){
+        moveSpeed = MoveHelper.getUpdatedSpeed(context, 0.6f)
+        stopSpeed = MoveHelper.getUpdatedSpeed(context, 0.4f)
+        maxSpeed = MoveHelper.getUpdatedSpeed(context, 5.0f)
+        gravity = MoveHelper.getUpdatedSpeed(context, 0.64f)
+        maxFallingSpeed = MoveHelper.getUpdatedSpeed(context, 12.0f)
+        jumpStart = MoveHelper.getUpdatedSpeed(context, -17.3f)
     }
 }
