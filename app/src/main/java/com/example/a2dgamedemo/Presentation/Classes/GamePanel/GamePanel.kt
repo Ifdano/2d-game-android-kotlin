@@ -137,6 +137,7 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
         val tempY = event.y
 
         val tx = tileMap!!.getX()
+        val ty = tileMap!!.getY()
 
         when(event?.action){
             MotionEvent.ACTION_DOWN -> {
@@ -148,19 +149,22 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
                     doubleHandler.postDelayed(checkDouble, 200)
 
                     // Character selection
-                    val selectedCharacter: MainCharacter = getSelectedCharacter(tempX, tempY)
+                    val selectedCharacter: MainCharacter = getSelectedCharacter(tempX, tempY, tx.toFloat(),
+                        ty.toFloat())
                     sonicCharacter?.setCurrentFocus(selectedCharacter is SonicCharacter)
                     braidCharacter?.setCurrentFocus(selectedCharacter is BraidCharacter)
 
                     // Character movement and actions
                     if (sonicCharacter!!.getCurrentFocus()) {
-                        handleCharacterMovement(sonicCharacter, tempX, tempY)
+                        handleCharacterMovement(sonicCharacter as MainCharacter, tempX, tempY)
                     } else if (braidCharacter!!.getCurrentFocus()) {
-                        handleCharacterMovement(braidCharacter, tempX, tempY)
+                        handleCharacterMovement(braidCharacter as MainCharacter, tempX, tempY)
                     }
                 }
             }
-            MotionEvent.ACTION_UP -> {}
+            MotionEvent.ACTION_UP -> {
+                stopMove()
+            }
         }
 
         return true
@@ -189,17 +193,58 @@ class GamePanel(context: Context) : View(context), Runnable, OnTouchListener, IB
         doubleHandler.removeCallbacks(this)
     }
 
-    private fun toggleReverse(character: MainCharacter){
-        if(character.getCurrentFocus()){
-            character.setReverse(!character.isReverse())
+    private fun stopMove(){
+        if(sonicCharacter!!.getCurrentFocus()){
+            sonicCharacter!!.setCharacterLeft(false)
+            sonicCharacter!!.setCharacterRight(false)
+
+            sonicCharacter!!.setJumpingStop()
+        }else if(braidCharacter!!.getCurrentFocus()){
+            braidCharacter!!.setCharacterLeft(false)
+            braidCharacter!!.setCharacterRight(false)
+
+            braidCharacter!!.setJumpingStop()
         }
     }
 
-    private fun getSelectedCharacter(x: Float, y: Float, tx: Float, ty: Float,
-                                     braid: BraidCharacter, sonic: SonicCharacter) : MainCharacter{
-        if(isInsideBounds(x, y, tx + sonic)){
+    private fun toggleReverse(character: MainCharacter){
+        if(character.getCurrentFocus()){
+            character.setCharacterReverse(!character.isReverse())
+        }
+    }
 
-        }else if(){}
+    private fun getSelectedCharacter(x: Float, y: Float, tx: Float, ty: Float) : MainCharacter{
+        if(isInsideBounds(x, y, tx + sonicCharacter!!.getCoordinateX(), ty + sonicCharacter!!.getCoordinateY(), sonicCharacter!!.getCharacterWidth().toFloat(),
+                sonicCharacter!!.getCharacterHeight().toFloat())){
+            return sonicCharacter as MainCharacter;
+        }else if(isInsideBounds(x, y, tx + braidCharacter!!.getCoordinateX(), ty + braidCharacter!!.getCoordinateY(), braidCharacter!!.getCharacterWidth().toFloat(),
+                braidCharacter!!.getCharacterHeight().toFloat())){
+            return braidCharacter as MainCharacter;
+        }
+
+        return braidCharacter as MainCharacter;
+    }
+
+    private fun handleCharacterMovement(character: MainCharacter, tempX: Float, tempY: Float) {
+        if (character.isReverse()) {
+            if (tempY <= DisplayHelper.getDisplayHeight(context) / 2) {
+                character.setCharacterJumping(true)
+            }
+            if (tempX <= DisplayHelper.getDisplayWidth(context) / 2) {
+                character.setCharacterLeft(true)
+            } else if (tempX > DisplayHelper.getDisplayWidth(context) / 2) {
+                character.setCharacterRight(true)
+            }
+        } else {
+            if (tempY <= DisplayHelper.getDisplayHeight(context) / 2) {
+                character.setCharacterJumping(true)
+            }
+            if (tempX <= DisplayHelper.getDisplayWidth(context) / 2) {
+                character.setCharacterLeft(true)
+            } else if (tempX > DisplayHelper.getDisplayWidth(context) / 2) {
+                character.setCharacterRight(true)
+            }
+        }
     }
 
     private fun isInsideBounds(x: Float, y: Float, rectX: Float, rectY: Float,

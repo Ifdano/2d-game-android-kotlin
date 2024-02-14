@@ -36,19 +36,19 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
 
     protected var left = false
     protected var right = false
-    protected var jumping = false
-        set(value) {
+    private var jumping = false
+        /*set(value) {
             if(!falling)
                 jumping = value
-        }
+        }*/
 
     protected var falling = false
 
     protected var reverse = false
-        set(value) {
+        /*set(value) {
             if(!falling)
                 reverse = value
-        }
+        }*/
 
     protected var focus = false
 
@@ -88,38 +88,39 @@ open class MainCharacter(context: Context, map: TileMap, mapSize: DensityTypes, 
         this.y = y
     }
 
-    override fun setReverse(value: Boolean) {
-        this.reverse = value
-    }
-
-    override fun isReverse(): Boolean = reverse
-
     override fun setCurrentFocus(value: Boolean) {
         this.focus = value
     }
 
     override fun getCurrentFocus(): Boolean = focus
 
-    //override fun getX(): Float = x
+    override fun getCoordinateX(): Float = x
 
-    //override fun getY(): Float = y
+    override fun getCoordinateY(): Float = y
 
-    //override fun getWidth(): Int = width
+    override fun getCharacterWidth(): Int = width
 
-    //override fun getHeight(): Int = height
+    override fun getCharacterHeight(): Int = height
 
-    /*override fun setLeft(value: Boolean){
+    override fun setCharacterLeft(value: Boolean){
         left = value
-    }*/
+    }
 
-   /* override fun setRight(value: Boolean) {
+    override fun setCharacterRight(value: Boolean) {
         right = value
-    }*/
+    }
 
-    /*fun setJumping(value: Boolean) {
+    override fun setCharacterJumping(value: Boolean) {
         if(!falling)
             jumping = value
-    }*/
+    }
+
+    override fun setCharacterReverse(value: Boolean) {
+        if(!falling)
+            reverse = value
+    }
+
+    override fun isReverse(): Boolean = reverse
 
     /*fun setReverse(value: Boolean) {
         if(!falling)

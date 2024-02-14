@@ -5,18 +5,18 @@ import com.example.a2dgamedemo.Presentation.Views.Common.IBaseView
 interface IMainCharacter : IBaseView{
     fun setPosition(x : Float, y : Float)
 
-    //fun getX() : Float
-    //fun getY() : Float
+    fun getCoordinateX() : Float
+    fun getCoordinateY() : Float
 
-    //fun getWidth() : Int
+    fun getCharacterWidth() : Int
 
-    //fun getHeight() : Int
+    fun getCharacterHeight() : Int
 
-    ///fun setLeft(value : Boolean)
-    //fun setRight(value: Boolean)
-    //fun setJumping(value: Boolean)
+    fun setCharacterLeft(value : Boolean)
+    fun setCharacterRight(value: Boolean)
+    fun setCharacterJumping(value: Boolean)
 
-    fun setReverse(value: Boolean)
+    fun setCharacterReverse(value: Boolean)
     fun isReverse() : Boolean
 
     fun setCurrentFocus(value: Boolean)
